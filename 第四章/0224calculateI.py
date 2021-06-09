@@ -32,6 +32,7 @@ class Solution(object):
             stack = []
             num = 0
             sign = '+'
+            # s的长度大于0才能进行如下操作
             while len(s) > 0:
                 c = s.pop(0)
                 if c.isdigit():
