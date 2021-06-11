@@ -31,8 +31,8 @@ class Solution(object):
         return self.res
     # 可用的左括号为left个，可用的右括号为right个
     def backtrack(self, left, right, path):
-        # 左括号剩下的多，不合法
-        if right < left:
+        # 左括号剩下的多，不合法。因为是先去操作的左括号。
+        if left > right:
             return
         # 数量小于0， 不合法
         if left < 0 or right < 0:
