@@ -47,10 +47,10 @@ class Solution(object):
                 return -1
             res = float('inf')
             for coin in coins:
-                subproblem = dp(n-coin)
-                if subproblem == -1:
+                # subproblem = dp(n-coin)
+                if n-coin < 0:
                     continue
-                res = min(res, 1+subproblem)
+                res = min(res, 1 + dp(n-coin))
             return res if res != float('inf') else -1
         return dp(amount)
     def coinChange1(self, coins, amount):

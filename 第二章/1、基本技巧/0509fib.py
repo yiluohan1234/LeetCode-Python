@@ -158,6 +158,10 @@ class Solution(object):
         
         return memo[n]
     def fib2(self, n):
+        if n == 0:
+            return 0
+        if n == 1 or n == 2:
+            return 1
         # dp 数组迭代解法（自底而上）
         dp = [0 for _ in range(n+1)]
         dp[1] = dp[2] = 1

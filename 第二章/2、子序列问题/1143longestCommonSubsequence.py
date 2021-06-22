@@ -15,6 +15,10 @@
 例如，"ace" 是 "abcde" 的子序列，但 "aec" 不是 "abcde" 的子序列。
 两个字符串的 公共子序列 是这两个字符串所共同拥有的子序列。
 
+对于两个字符串求子序列的问题，都是用两个指针i和j分别在两个字符串上移动，大概率是动态规划思路。
+dp函数的定义：dp(s1, i, s2, j)计算s1[i..]和s2[j..]的最长公共子序列长度。
+base case 就是i == len(s1)或j == len(s2)时，因为这时候s1[i..]或s2[j..]就相当于空串了，最长公共子序列的长度显然是 0.
+
 '''
 import unittest
 class Solution(object):      
@@ -36,8 +40,12 @@ class Solution(object):
         if s1[i] == s2[j]:
             self.memo[i][j] = 1 + self.dp(s1, i+1, s2, j+1)
         else:
-            self.memo[i][j] = max(self.dp(s1, i+1, s2, j), 
-                                  self.dp(s1, i, s2, j+1))
+            self.memo[i][j] = max(
+                self.dp(s1, i+1, s2, j), # 情况一、s1[i] 不在 lcs 中
+                self.dp(s1, i, s2, j+1)  # 情况二、s2[j] 不在 lcs 中
+                # 情况三、都不在 lcs 中 
+                # self.dp(s1, i + 1, s2, j + 1),可以忽略
+            )
         
         return self.memo[i][j]
     def longestCommonSubsequence1(self, s1, s2):

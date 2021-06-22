@@ -12,6 +12,9 @@
 给你一个整数数组 nums ，找到其中最长严格递增子序列的长度。
 子序列是由数组派生而来的序列，删除（或不删除）数组中的元素而不改变其余元素的顺序。例如，[3,6,2,7] 是数组 [0,3,1,6,2,2,7] 的子序列。
 
+动态规划的核心设计思想是数学归纳法
+dp[i] 表示以 nums[i] 这个数结尾的最长递增子序列的长度。
+base case。dp 数组应该全部初始化为 1，因为子序列最少也要包含自己，所以长度最小为 1
 '''
 import unittest
 class Solution(object):
@@ -24,7 +27,7 @@ class Solution(object):
         
         for i in range(len(nums)):
             for j in range(i):
-                if nums[i] > nums[j]:
+                if nums[j] < nums[i]:
                     dp[i] = max(dp[i], dp[j] + 1)
         ans = 0
         for i in range(len(dp)):
@@ -36,28 +39,33 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-#         top = [0 for _ in range(len(nums))]
         top = {}
+        # 初始化牌的顿数为0
         piles = 0
         
         for i in range(len(nums)):
+            print(piles)
+            # 要处理的扑克牌
             poker = nums[i]
+            # 左边界的二分查找
             left, right = 0, piles
             while left < right:
                 mid = (left + right) // 2
+                # if top[mid][-1] > poker:
                 if top[mid] > poker:
                     right = mid
                 elif top[mid] < poker:
                     left = mid + 1
                 else:
                     right = mid
-            
+            # 没有找到合适的牌队，新建一堆
             if left == piles:
                 piles += 1
-            print("left=%d, poker=%d, piles=%d"%(left, poker, piles))
-
+            # 把这张牌放在堆顶
             top[left] = poker
+            #top.setdefault(left, []).append(poker)
         print(top)
+        # 牌堆的个数就是LIS长度
         return piles
         
 class TestSolution(unittest.TestCase):
@@ -68,11 +76,11 @@ class TestSolution(unittest.TestCase):
     def test_1(self):
         nums = [0,1,0,3,2,3]
         res = 4
-        self.assertEqual(res, Solution().lengthOfLIS(nums))
+        self.assertEqual(res, Solution().lengthOfLIS1(nums))
     def test_2(self):
         nums = [7,7,7,7,7,7,7]
         res = 1
-        self.assertEqual(res, Solution().lengthOfLIS(nums))
+        self.assertEqual(res, Solution().lengthOfLIS1(nums))
 
 if __name__ == "__main__":
     unittest.main()
