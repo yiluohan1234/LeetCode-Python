@@ -56,6 +56,33 @@ class Solution(object):
                                   ord(s2[j]) + self.dp(s1, i, s2, j+1))
         
         return self.memo[i][j]
+    def minimumDeleteSum1(self, s1, s2):
+        """
+        :type s1: str
+        :type s2: str
+        :rtype: int
+        """
+        # dp[i][j] 表示公共子序列的 ASCII 码之和
+        # dp[i][0] 和 dp[0][j] 为 0
+        # 用两个字符串总的ASCII之和 减去公共子序列的和
+        m, n = len(s1), len(s2)
+        dp = [[0 for _ in range(n+1)] for _ in range(m+1)]
+        
+        sum_two = 0
+        for i in range(m):
+            sum_two += ord(s1[i])
+        for j in range(n):
+            sum_two += ord(s2[j])
+
+        for i in range(1, m+1):
+            for j in range(1, n+1):
+                if s1[i-1] == s2[j-1]:
+                    dp[i][j] = dp[i-1][j-1] + ord(s1[i-1])
+                else:
+                    dp[i][j] = max(dp[i-1][j], dp[i][j-1])
+        
+        
+        return sum_two - 2*dp[m][n]
 class TestSolution(unittest.TestCase):
     def test_0(self):
         s1 = "sea"
