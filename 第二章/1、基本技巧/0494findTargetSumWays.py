@@ -115,7 +115,7 @@ class Solution(object):
         # 动态规划
         # nums划分为子集 A 和 B，分别代表分配 + 的数和分配 - 的数
         # 则 sum(A) - sum(B) = target => sum(A) = target + sum(B) => 2*sum(A) = target+sum(B)+sum(A) => 2*sum(A)=target+sum(nums)
-        # 把原问题转化成：nums 中存在几个子集 A，使得 A 中元素的和为 (target + sum(nums)) / 2
+        # 把原问题转化成：求所有的 nums 中的子集 A，使得 A 中元素的和满足 (target + sum(nums)) / 2
         sum_nums = 0
         for num in nums:
             sum_nums += num
@@ -156,7 +156,7 @@ class Solution(object):
         # 那么，我们就要做到：在计算新的 dp[j] 的时候，dp[j] 和 dp[j-nums[i-1]] 还是上一轮外层 for 循环的结果。
         # 如果你从前往后遍历一维 dp 数组，dp[j] 显然是没问题的，但是 dp[j-nums[i-1]] 已经不是上一轮外层 for 循环的结果了，这里就会使用错误的状态，当然得不到正确的答案
         for i in range(1, n+1):
-            for j in range(target, -1, -1):
+            for j in range(target, 0, -1):
                 #3、选择：
                 #不把num[i]放入背包，装满背包取决于上一个状态dp[i-1][j]
                 #把nums[i]放入背包，装满背包取决于前 i-1个物品有几种方法可以装满 j-nums[i-1]的重量就行了
@@ -176,7 +176,7 @@ class TestSolution(unittest.TestCase):
         nums = [1,1,1,1,1]
         target = 3
         res = 5
-        self.assertEqual(res, Solution().findTargetSumWays(nums, target))
+        self.assertEqual(res, Solution().findTargetSumWays3(nums, target))
 
 if __name__ == "__main__":
     unittest.main()
