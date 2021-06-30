@@ -21,7 +21,7 @@
 
 贪心算法可以认为是动态规划算法的一个特例，相比动态规划，使用贪心算法需要满足更多的条件（贪心选择性质），但是效率比动态规划要高。
 每一步都做出一个局部最优的选择，最终的结果就是全局最优。
-对于区间问题的处理，一般来说第一步都是排序，相当于预处理降低后续操作难度
+对于区间问题的处理，一般来说第一步都是排序，相当于预处理降低后续操作难度。
 '''
 import unittest
 class Solution(object):
@@ -31,8 +31,8 @@ class Solution(object):
         :rtype: int
         """
         # 如果最多有n个不重叠的区间，那么就至少需要n个箭头穿透所有区间
-        intvs = sorted(points, key= lambda x:x[1])
-
+        intvs = sorted(points, key=lambda x:x[1])
+        
         count = 1
         start_end = intvs[0][1]
         for num in intvs:

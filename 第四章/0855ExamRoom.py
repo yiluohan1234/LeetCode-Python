@@ -37,6 +37,7 @@ class ExamRoom:
         self.pq = SortedListWithKey([(-1, N)], key=lambda x: (self.distance(x[0], x[1]), -x[0])) 
     
     def distance(self, a, b):
+        # -1 和 N 是假想出来的两个点，注意节点的开始可结束位置的选择。
         if a == -1:
             return b
         if b == self.N:

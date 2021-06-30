@@ -8,6 +8,7 @@
 #    > description: 
 #######################################################################
 import unittest
+import heapq
 class Solution(object):
     def findRepeatNumber(self, nums):
         """
@@ -22,5 +23,8 @@ class TestSolution(unittest.TestCase):
         self.assertEqual(res, Solution().findRepeatNumber(s))
 
 if __name__ == '__main__':
-    unittest.main()
-    
+    nums = [1,1,1,2,2,3]
+    from collections import Counter
+    dic = Counter(nums)
+    print(dict(dic))
+        

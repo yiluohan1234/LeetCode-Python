@@ -66,7 +66,7 @@ class Solution(object):
         # base case
         for i in range(n):
             dp[i][i] = 1
-        # 反着遍历保证正确的状态转移
+        # 遍历方向的确定：反着遍历保证正确的状态转移
         for i in range(n-1, -1, -1):
             for j in range(i+1, n):
                 # 状态转移方程

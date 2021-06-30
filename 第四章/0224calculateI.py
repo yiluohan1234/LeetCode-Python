@@ -39,6 +39,7 @@ class Solution(object):
                     num = num * 10 + int(c)
                 if c == '(':
                     num = helper(s)
+                # 另外注意，不只是遇到新的符号会触发入栈，当i走到了算式的尽头（i == s.size() - 1），也应该将前面的数字入栈，方便后续计算最终结果。
                 if (not c.isdigit() and c != ' ') or len(s) == 0:
                     if sign == '+':
                         stack.append(num)
