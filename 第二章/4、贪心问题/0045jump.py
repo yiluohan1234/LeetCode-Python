@@ -51,12 +51,12 @@ class Solution(object):
         # 贪心选择性质，我们不需要「递归地」计算出所有选择的具体结果然后比较求最值，而只需要做出那个最有「潜力」，看起来最优的选择即可。
         # i和end标记了可以选择的跳跃步数，farthest标记了所有可选择跳跃步数[i..end]中能够跳到的最远距离，jumps记录了跳跃次数
         n = len(nums)
-        if n == 1:
-            return 0
-        end = 0
-        farthest = 0
+        end, farthest = 0, 0
         jumps = 0
-        for i in range(n):
+        
+        for i in range(n-1):
+            if end >= n - 1:
+                break
             farthest = max(nums[i] + i, farthest)
             if farthest >= n - 1:
                 return jumps + 1
@@ -69,11 +69,11 @@ class TestSolution(unittest.TestCase):
     def test_0(self):
         s = [2,3,1,1,4]
         res = 2
-        self.assertEqual(res, Solution().jump2(s))
+        self.assertEqual(res, Solution().jump1(s))
     def test_1(self):
         s = [2,3,0,1,4]
         res = 2
-        self.assertEqual(res, Solution().jump2(s))
+        self.assertEqual(res, Solution().jump1(s))
 
 if __name__ == '__main__':
     unittest.main()

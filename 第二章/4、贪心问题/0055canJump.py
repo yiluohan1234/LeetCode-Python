@@ -30,18 +30,16 @@ class Solution(object):
         :type nums: List[int]
         :rtype: bool
         """
-        if len(nums) == 1:
-            return True
         n = len(nums)
         farthest = 0
-        for i in range(n):
+        # 由于数组为非负整数，不需要遍历到n-1，只需到n-2即可
+        for i in range(n-1):
             farthest = max(farthest, i + nums[i])
             
             if farthest <= i:
                 return False 
 
-            if farthest >= n - 1:
-                return True
+        return farthest >= n - 1
 class TestSolution(unittest.TestCase):
     def test_0(self):
         nums = [2,3,1,1,4]
