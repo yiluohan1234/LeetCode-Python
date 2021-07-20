@@ -41,7 +41,7 @@ class Solution(object):
         m, n = len(grid), len(grid[0])
         # base case
         if i == m-1 and j == n-1:
-            return 1 if grid[i][j] > 0 else -grid[i][j] + 1
+            return 1 if grid[i][j] >= 0 else -grid[i][j] + 1
         if i == m or j == n:
             return float('inf')
 
@@ -51,7 +51,7 @@ class Solution(object):
         res = min(self.dp(grid, i+1, j), self.dp(grid, i, j+1)) - grid[i][j]
         # 骑士的生命值至少为 1
         self.memo[(i,j)] = 1 if res <= 0 else res
-        return 1 if res <= 0 else res
+        return self.memo[(i,j)]
     def calculateMinimumHP(self, dungeon):
         """
         :type dungeon: List[List[int]]
