@@ -1,12 +1,21 @@
 #!/usr/bin/env python
 # coding=utf-8
 #######################################################################
-#    > File Name: 
-#    > Author: cuiyufei
-#    > Mail: 1097189275@qq.com
-#    > Created Time: 2021年6月1日
-#    > description: 
+#    > File    : 1312minInsertions.py
+#    > Version : 1.0
+#    > Author  : Cui Yufei 
+#    > Email   : 1097189275@qq.com
+#    > Time    : 2021/07/27 13:31:43
+#    > License : (C)Copyright 2017-2018, XXX
+#    > Desc    : None
 #######################################################################
+
+'''
+1312. 让字符串成为回文串的最少插入次数(https://leetcode-cn.com/problems/minimum-insertion-steps-to-make-a-string-palindrome/)
+给你一个字符串 s ，每一次操作你都可以在字符串的任意位置插入任意字符。
+请你返回让 s 成为回文串的 最少操作次数 。
+「回文串」是正读和反读都相同的字符串。
+'''
 import unittest
 class Solution(object):
     def minInsertions0(self, s):
