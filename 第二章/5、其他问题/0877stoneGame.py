@@ -49,8 +49,8 @@ class Solution(object):
             # 我们想获得的答案就是：dp[0][n-1][0] -dp[0][n-1][1]
             dp[i][i][0] = piles[i]
             dp[i][i][1] = 0
-        for j in range(1, n):
-            for i in range(j-1, -1, -1):
+        for i in range(n-2, -1, -1):
+            for j in range(i+1, n):
                 left = piles[i] +dp[i+1][j][1]
                 right = piles[j] + dp[i][j-1][1]
                 if left > right:

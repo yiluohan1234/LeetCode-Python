@@ -48,6 +48,7 @@ class Solution(object):
                 dp[i] = max(dp[i], dp[j-2]*(i-j+1))
         
         return dp[N]
+        
 class TestSolution(unittest.TestCase):
     def test_0(self):
         s = 3
