@@ -38,7 +38,7 @@ class Solution(object):
                 
 
         # 根据 dp 数组的定义，题目要求的答案
-        return dp[0][n - 1];
+        return dp[0][n - 1]
     def minInsertions(self, s):
         """
         :type s: str
@@ -66,9 +66,25 @@ class Solution(object):
         
 class TestSolution(unittest.TestCase):
     def test_0(self):
-        s = "babad"
-        res = "bab"
-        self.assertEqual(res, Solution().longestPalindrome(s))
+        s = "zzazz"
+        res = 0
+        self.assertEqual(res, Solution().minInsertions0(s))
+    def test_1(self):
+        s = "mbadm"
+        res = 2
+        self.assertEqual(res, Solution().minInsertions0(s))
+    def test_2(self):
+        s = "leetcode"
+        res = 5
+        self.assertEqual(res, Solution().minInsertions0(s))
+    def test_3(self):
+        s = "g"
+        res = 0
+        self.assertEqual(res, Solution().minInsertions0(s))
+    def test_4(self):
+        s = "no"
+        res = 1
+        self.assertEqual(res, Solution().minInsertions0(s))
 
 if __name__ == '__main__':
     unittest.main()

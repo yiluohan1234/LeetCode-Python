@@ -34,12 +34,13 @@ class Solution(object):
         intvs = sorted(points, key=lambda x:x[1])
         
         count = 1
-        start_end = intvs[0][1]
-        for num in intvs:
+        x_end = intvs[0][1]
+        for i in range(len(intvs)):
             # 箭头如果碰到气球的边界气球也会爆炸，所以说相当于区间的边界触碰也算重叠
-            if num[0] > start_end:
+            start = intvs[i][0]
+            if start > x_end:
                 count += 1
-                start_end = num[1]
+                x_end = intvs[i][1]
         return count 
 class TestSolution(unittest.TestCase):
     def test_0(self):

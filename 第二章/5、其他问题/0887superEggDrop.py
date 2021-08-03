@@ -44,6 +44,7 @@ class Solution(object):
                 return 0
             res = float('inf')
             for i in range(1, N+1):
+                # 最坏情况下的最少扔鸡蛋次数
                 res = min(res,
                           max(dp(K-1, i-1), # 碎
                               dp(K, N - i)) #没碎
