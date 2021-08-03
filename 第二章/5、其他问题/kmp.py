@@ -1,14 +1,16 @@
 #!/usr/bin/env python
 # coding=utf-8
 #######################################################################
-#    > File Name: 
-#    > Author: cuiyufei
-#    > Mail: 1097189275@qq.com
-#    > Created Time: 2021年5月31日
-#    > description: 
+#    > File    : kmp.py
+#    > Version : 1.0
+#    > Author  : Cui Yufei 
+#    > Email   : 1097189275@qq.com
+#    > Time    : 2021/08/03 15:01:38
+#    > License : (C)Copyright 2017-2018, XXX
+#    > Desc    : None
 #######################################################################
 '''
-
+KMP 算法（Knuth-Morris-Pratt 算法）字符串匹配算法
 '''
 import unittest
 class kmp(object):
@@ -51,8 +53,6 @@ class kmp(object):
         # 没到达终止态，匹配失败
         return -1
 
-
-    
         
 class TestSolution(unittest.TestCase):
     def test_0(self):
