@@ -11,7 +11,7 @@
 #######################################################################
 
 '''
-514. 自由之路(https://leetcode-cn.com/problems/freedom-trail/)
+[514. 自由之路](https://leetcode-cn.com/problems/freedom-trail/)
 电子游戏“辐射4”中，任务“通向自由”要求玩家到达名为“Freedom Trail Ring”的金属表盘，并使用表盘拼写特定关键词才能开门。
 给定一个字符串 ring，表示刻在外环上的编码；给定另一个字符串 key，表示需要拼写的关键词。您需要算出能够拼写关键词中所有字符的最少步数。
 
@@ -32,38 +32,27 @@ class Solution(object):
         """
         m, n = len(ring), len(key)
         self.chartoindex = {}
+        # 备忘录全部初始化为 0
         self.memo = {}
+        # 记录圆环上字符到索引的映射
         for i in range(m):
             c = ring[i]
             self.chartoindex.setdefault(c, []).append(i)
+        # 圆盘指针最初指向 12 点钟方向，从第一个字符开始输入 key
         return self.dp(ring, 0, key, 0)
-    def longLIS(self, nums):
-        top = {}
-        piles = 0
-        
-        for i in range(len(nums)):
-            poker = nums[i]
-            lo, hi = 0, piles
-            while lo < hi:
-                mid = lo + (hi - lo) // 2
-                if top[mid] > poker:
-                    hi = mid
-                elif top[mid] < poker:
-                    lo = mid + 1
-                else:
-                    hi = mid
-            if lo == piles:
-                piles += 1
-            top[lo] = poker
-        
-        return piles
+
     def dp(self, ring, i, key, j):
         # 计算圆盘指针在 ring[i]，输入 key[j..] 的最少操作数
         m, n = len(ring), len(key)
+        # base case 完成输入
         if j == n:
             return 0
+
+        # 查找备忘录，避免重叠子问题
         if (i, j) in self.memo:
             return self.memo[(i, j)]
+
+        # 做选择
         res = float('inf')
 
         # ring 上可能有多个字符 key[j]
@@ -72,8 +61,11 @@ class Solution(object):
             delta = abs(k-i)
             # 顺时针拨动还是逆时针拨动
             delta = min(delta, m - delta)
+            # 将指针拨到 ring[k]，继续输入 key[j+1..]
             sub_problem = self.dp(ring, k, key, j + 1)
+            # 选择「整体」操作次数最少的
             res = min(res, 1 + delta + sub_problem)
+        # 将结果存入备忘录
         self.memo[(i, j)] = res
         return res
         

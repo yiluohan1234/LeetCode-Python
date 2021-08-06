@@ -27,35 +27,32 @@
 '''
 import unittest
 class Solution(object):
-    def __init__(self):
-        self.memo = {}
     def minPathSum1(self, grid):
         """
         :type grid: List[List[int]]
         :rtype: int
         """
-        m = len(grid)
-        n = len(grid[0])
-        # dp:从左上角位置 (0, 0) 走到位置 (i, j) 的最小路径和为 dp(grid, i, j)
-        return self.dp(grid, m-1, n-1)
-    
-    def dp(self, grid , i, j):
-        if (i,j) in self.memo:
-            return self.memo[(i,j)]
-        # base case
-        if i == 0 and j == 0:
-            return grid[0][0]
+        memo = {}
+        m, n = len(grid), len(grid[0])
+        def dp(grid , i, j):
+            if (i,j) in memo:
+                return memo[(i,j)]
+            # base case
+            if i == 0 and j == 0:
+                return grid[0][0]
 
-        # 如果索引出界，返回一个很大的值，保证在取 min 的时候不会被取到
-        if i < 0 or j < 0:
-            return float('inf')
-        
-        res = min(
-            self.dp(grid, i-1, j),
-            self.dp(grid, i, j-1)
-        ) + grid[i][j]
-        self.memo[(i,j)] = res
-        return res
+            # 如果索引出界，返回一个很大的值，保证在取 min 的时候不会被取到
+            if i < 0 or j < 0:
+                return float('inf')
+            
+            res = min(
+                dp(grid, i-1, j),
+                dp(grid, i, j-1)
+            ) + grid[i][j]
+            memo[(i,j)] = res
+            return res
+        # dp:从左上角位置 (0, 0) 走到位置 (i, j) 的最小路径和为 dp(grid, i, j)
+        return dp(grid, m-1, n-1)
         # 判断重叠子问题
         # 如果我想从 dp(i, j) 递归到 dp(i-1, j-1)，有几种不同的递归调用路径？
         # int dp(int i, int j) {
@@ -91,7 +88,7 @@ class TestSolution(unittest.TestCase):
     def test_0(self):
         s = [[1,3,1],[1,5,1],[4,2,1]]
         res = 7
-        self.assertEqual(res, Solution().minPathSum(s))
+        self.assertEqual(res, Solution().minPathSum1(s))
 
 if __name__ == '__main__':
     unittest.main()

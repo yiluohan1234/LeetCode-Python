@@ -8,7 +8,7 @@
 #    > description: 
 #######################################################################
 '''
-312. 戳气球(https://leetcode-cn.com/problems/burst-balloons/)
+[312. 戳气球](https://leetcode-cn.com/problems/burst-balloons/)
 有 n 个气球，编号为0 到 n - 1，每个气球上都标有一个数字，这些数字存在数组 nums 中。
 现在要求你戳破所有的气球。戳破第 i 个气球，你可以获得 nums[i - 1] * nums[i] * nums[i + 1] 枚硬币。 这里的 i - 1 和 i + 1 代表和 i 相邻的两个气球的序号。如果 i - 1或 i + 1 超出了数组的边界，那么就当它是一个数字为 1 的气球。
 求所能获得硬币的最大数量。
@@ -29,6 +29,7 @@ class Solution(object):
         :rtype: int
         """
         n = len(nums)
+        # 添加两侧的虚拟气球
         points = [1]
         for i in range(len(nums)):
             points.append(nums[i])
@@ -37,16 +38,24 @@ class Solution(object):
         # dp[i][j] = x表示，戳破气球i和气球j之间（开区间，不包括i和j）的所有气球，可以获得的最高分数为x
         # 题目要求的结果就是dp[0][n+1]的值，而 base case 就是dp[i][j] = 0，其中0 <= i <= n+1, j <= i+1
         # 最终状态就是指题目要求的结果，对于这道题目也就是dp[0][n+1]。
+
+        # base case 已经都被初始化为 0
         dp = [[0 for _ in range(n+2)] for _ in range(n+2)]
         # 「状态」和「选择」：i和j就是两个「状态」，最后戳破的那个气球k就是「选择」
         # 确定遍历方向：base， 重点，需要的子状态
+
+        # 开始状态转移  
+        # i 应该从下往上
         for i in range(n, -1, -1):
+            # j 应该从左往右
             for j in range(i+1, n+2):
                 # 最后戳破的气球是哪个？
                 for k in range(i+1, j):
                     # 根据刚才对dp数组的定义，如果最后一个戳破气球k，dp[i][j]的值应该为：
                     # 你不是要最后戳破气球k吗？那得先把开区间(i, k)的气球都戳破，再把开区间(k, j)的气球都戳破；
                     # 最后剩下的气球k，相邻的就是气球i和气球j，这时候戳破k的话得到的分数就是points[i]*points[k]*points[j]。
+
+                    # 择优做选择
                     dp[i][j] = max(dp[i][j], dp[i][k] + dp[k][j] + points[i]*points[k]*points[j])
         return dp[0][n + 1]
             

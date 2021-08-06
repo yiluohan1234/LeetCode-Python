@@ -11,7 +11,7 @@
 #######################################################################
 
 '''
-787. K 站中转内最便宜的航班(https://leetcode-cn.com/problems/cheapest-flights-within-k-stops/)
+[787. K 站中转内最便宜的航班](https://leetcode-cn.com/problems/cheapest-flights-within-k-stops/)
 有 n 个城市通过 m 个航班连接。每个航班都从城市 u 开始，以价格 w 抵达 v。
 现在给定所有的城市和航班，以及出发城市 src 和目的地 dst，你的任务是找到从 src 到 dst 最多经过 k 站中转的最便宜的价格。 如果没有这样的路线，则输出 -1。
 '''
@@ -26,9 +26,10 @@ class Solution(object):
         :type k: int
         :rtype: int
         """
-        # 将k次改为k条边
+        # 将中转站个数转化成边的条数
         k += 1
         self.src = src 
+        # 哈希表记录每个点的入度
         self.indegree = {}
         self.memo = {}
         for f in flights:
@@ -50,14 +51,15 @@ class Solution(object):
         if (s, k) in self.memo:
             return self.memo[(s, k)]
 
+        # 初始化为最大值，方便等会儿取最小值
         res = float('inf')
-        # 首先s要在self.indegree
+        # 当 s 有入度节点时，分解为子问题
         if s in self.indegree:
             for f_points, prices in self.indegree[s].items():
                 sub_problem = self.dp(f_points, k-1)
                 if sub_problem != -1:
                     res = min(res, sub_problem + prices)
-        
+        # 如果还是初始值，说明此节点不可达
         self.memo[(s, k)] = -1 if res == float('inf') else res 
 
         return self.memo[(s, k)]

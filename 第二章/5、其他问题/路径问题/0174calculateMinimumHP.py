@@ -8,7 +8,7 @@
 #    > description: 
 #######################################################################
 '''
-174. 地下城游戏(https://leetcode-cn.com/problems/dungeon-game/)
+[174. 地下城游戏](https://leetcode-cn.com/problems/dungeon-game/)
 一些恶魔抓住了公主（P）并将她关在了地下城的右下角。地下城是由 M x N 个房间组成的二维网格。
 我们英勇的骑士（K）最初被安置在左上角的房间里，他必须穿过地下城并通过对抗恶魔来拯救公主。
 骑士的初始健康点数为一个正整数。如果他的健康点数在某一时刻降至 0 或以下，他会立即死亡。
@@ -24,35 +24,36 @@
 '''
 import unittest
 class Solution(object):
-    def __init__(self):
-        self.memo = {}
     def calculateMinimumHP(self, dungeon):
         """
         :type dungeon: List[List[int]]
         :rtype: int
         """
+        memo = {}
         m, n = len(dungeon), len(dungeon[0])
-        return self.dp(dungeon, 0, 0)
+        def dp(grid, i, j):
+            # 从左上角（grid[0][0]）走到 grid[i][j] 至少需要 dp(grid, i, j) 的生命值。错误的定义
+            # 从 grid[i][j] 到达终点（右下角）所需的最少生命值是 dp(grid, i, j)。
+            # 定义：从 (i, j) 到达右下角，需要的初始血量至少是多少
+            # base case
+            m, n = len(grid), len(grid[0])
+            # base case
+            if i == m-1 and j == n-1:
+                return 1 if grid[i][j] >= 0 else -grid[i][j] + 1
+            if i == m or j == n:
+                return float('inf')
+            # 避免重复计算
+            if (i,j) in memo:
+                return memo[(i,j)]
+            # 状态转移逻辑
+            res = min(dp(grid, i+1, j), dp(grid, i, j+1)) - grid[i][j]
+            # 骑士的生命值至少为 1
+            memo[(i,j)] = 1 if res <= 0 else res
+            return memo[(i,j)]
+        return dp(dungeon, 0, 0)
     
-    def dp(self, grid, i, j):
-        # 从左上角（grid[0][0]）走到 grid[i][j] 至少需要 dp(grid, i, j) 的生命值。错误的定义
-        # 从 grid[i][j] 到达终点（右下角）所需的最少生命值是 dp(grid, i, j)。
-        # base case
-        m, n = len(grid), len(grid[0])
-        # base case
-        if i == m-1 and j == n-1:
-            return 1 if grid[i][j] >= 0 else -grid[i][j] + 1
-        if i == m or j == n:
-            return float('inf')
-
-        if (i,j) in self.memo:
-            return self.memo[(i,j)]
-        # 状态转移
-        res = min(self.dp(grid, i+1, j), self.dp(grid, i, j+1)) - grid[i][j]
-        # 骑士的生命值至少为 1
-        self.memo[(i,j)] = 1 if res <= 0 else res
-        return self.memo[(i,j)]
-    def calculateMinimumHP(self, dungeon):
+    
+    def calculateMinimumHP1(self, dungeon):
         """
         :type dungeon: List[List[int]]
         :rtype: int
@@ -76,9 +77,13 @@ class Solution(object):
         return dp[0][0]
 class TestSolution(unittest.TestCase):
     def test_0(self):
-        s = [2, 3, 1, 0, 2, 5, 3]
-        res = [2, 3]
-        self.assertEqual(res, Solution().findRepeatNumber(s))
+        dungeon = [[-2,-3,3],[-5,-10,1],[10,30,-5]]
+        res = 7
+        self.assertEqual(res, Solution().calculateMinimumHP(dungeon))
+    def test_1(self):
+        dungeon = [[0]]
+        res = 1
+        self.assertEqual(res, Solution().calculateMinimumHP(dungeon))
 
 if __name__ == '__main__':
     unittest.main()

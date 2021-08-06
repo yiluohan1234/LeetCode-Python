@@ -46,7 +46,7 @@ class Solution(object):
                 # 全选 &复制dp[j-2],连续粘贴i-j次
                 # 屏幕上共dp[j-2]*(i-j+1)个A
                 dp[i] = max(dp[i], dp[j-2]*(i-j+1))
-        
+        # N 次按键之后最多有几个A？
         return dp[N]
         
 class TestSolution(unittest.TestCase):

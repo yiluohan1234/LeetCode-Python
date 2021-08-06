@@ -8,7 +8,7 @@
 #    > description: 
 #######################################################################
 '''
-309. 最佳买卖股票时机含冷冻期(https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/)
+[309. 最佳买卖股票时机含冷冻期](https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/)
 给定一个整数数组，其中第 i 个元素代表了第 i 天的股票价格 。​
 
 设计一个算法计算出最大利润。在满足以下约束条件下，你可以尽可能地完成更多的交易（多次买卖一支股票）:
@@ -27,6 +27,14 @@ class Solution(object):
         :type prices: List[int]
         :rtype: int
         """
+        # dp[i][k][0] = max(dp[i-1][k][0], dp[i-1][k][1] + prices[i])
+        # dp[i][k][1] = max(dp[i-1][k][1], dp[i-1][k-1][0] - prices[i])
+        # dp[-1][k][0] = dp[i][0][0] = 0
+        # dp[-1][0][1] = dp[i][0][1] = -inf
+        # dp[i][0] = max(dp[i-1][0], dp[i-1][1] + prices[i])
+        # dp[i][1] = max(dp[i-1][1], dp[i-2][0] - prices[i])
+        # dp[-1][0] = dp[i][0] = 0
+        # dp[-1][1] = dp[i][1] = -inf
         # k = +infinity with cooldown
         if not prices:
             return 0

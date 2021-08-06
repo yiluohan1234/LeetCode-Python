@@ -8,7 +8,7 @@
 #    > description: 
 #######################################################################
 '''
-188. 买卖股票的最佳时机 IV(https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-iv/)
+[188. 买卖股票的最佳时机 IV](https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-iv/)
 给定一个整数数组 prices ，它的第 i 个元素 prices[i] 是一支给定的股票在第 i 天的价格。
 
 设计一个算法来计算你所能获取的最大利润。你最多可以完成 k 笔交易。
@@ -32,18 +32,23 @@ class Solution(object):
         :type prices: List[int]
         :rtype: int
         """
+        # k = any integer
         n = len(prices)
-        dp = [[[0 for i in range(2)] for _ in range(k+1)] for _ in range(n)]
-        if k > n / 2:
+        k_max = k
+        dp = [[[0 for i in range(2)] for _ in range(k_max+1)] for _ in range(n)]
+        # 有效的限制次数 k 应该不超过 n/2，如果超过，就没有约束作用了，相当于 k = +infinity
+        if k_max > n / 2:
             return self.maxProfit_k_inf(prices)
         for i in range(n):
-            for k in range(k, 0, -1):
+            for k in range(k_max, 0, -1):
                 if i - 1 == -1:
                     dp[i][k][0] = 0
                     dp[i][k][1] = -prices[i]
+                    continue
                 dp[i][k][0] = max(dp[i-1][k][0], dp[i-1][k][1] + prices[i])
                 dp[i][k][1] = max(dp[i-1][k][1], dp[i-1][k-1][0] - prices[i])
-        return dp[n-1][k][0]
+        return dp[n-1][k_max][0]
+        
     def maxProfit_k_inf(self, prices):
         """
         :type prices: List[int]

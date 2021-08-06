@@ -1,16 +1,14 @@
 #!/usr/bin/env python
 # coding=utf-8
 #######################################################################
-#    > File    : 0337rob.py
-#    > Version : 1.0
-#    > Author  : Cui Yufei 
-#    > Email   : 1097189275@qq.com
-#    > Time    : 2021/08/04 10:22:19
-#    > License : (C)Copyright 2017-2018, XXX
-#    > Desc    : None
+#    > File Name: 
+#    > Author: cuiyufei
+#    > Mail: 1097189275@qq.com
+#    > Created Time: 2021年6月3日
+#    > description: 
 #######################################################################
 '''
-337. 打家劫舍 III(https://leetcode-cn.com/problems/house-robber-iii/)
+[337. 打家劫舍 III](https://leetcode-cn.com/problems/house-robber-iii/)
 在上次打劫完一条街道之后和一圈房屋后，小偷又发现了一个新的可行窃的地区。这个地区只有一个入口，我们称之为“根”。 除了“根”之外，每栋房子有且只有一个“父“房子与之相连。一番侦察之后，聪明的小偷意识到“这个地方的所有房屋的排列类似于一棵二叉树”。 如果两个直接相连的房子在同一天晚上被打劫，房屋将自动报警。
 计算在不触动警报的情况下，小偷一晚能够盗取的最高金额。
 
@@ -69,22 +67,21 @@ class Solution(object):
         """
         memo = {}
         def dp(root):
-            if root == None:
+            if not root:
                 return 0
+            # 利用备忘录消除重叠子问题
             if root in memo:
                 return memo[root]
             # 抢，然后去下下家
             do_it = root.val \
-                + (0 if root.left == None else dp(root.left.left) + dp(root.left.right)) \
-                + (0 if root.right == None else dp(root.right.left) + dp(root.right.right))
-            
+                    + (0 if root.left == None else dp(root.left.left) + dp(root.left.right)) \
+                    + (0 if root.right == None else dp(root.right.left) + dp(root.right.right)) 
             # 不抢，然后去下家
             not_do = dp(root.left) + dp(root.right)
-
             res = max(do_it, not_do)
-            memo[root] = res 
+            self.memo[root] = res
             return res
-        
+
         return dp(root)
     def rob1(self, root):
         res = self.dp(root)
@@ -111,7 +108,7 @@ class TestSolution(unittest.TestCase):
         s = [3,2,3,None,3,None,1]
         root = list_to_bitree(s)
         res = 7
-        self.assertEqual(res, Solution().rob(root))
+        self.assertEqual(res, Solution().rob1(root))
 
 if __name__ == '__main__':
     unittest.main()

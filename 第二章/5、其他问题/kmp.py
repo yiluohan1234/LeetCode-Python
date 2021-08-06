@@ -21,7 +21,7 @@ class kmp(object):
         self.dp = [[0 for _ in range(256)] for _ in range(m)]
         # base case
         self.dp[0][ord(pat[0])] = 1
-        # 影子状态 X 初始为 0
+        # 影子状态 x 初始为 0
         x = 0
         # #当前状态 j 从 1 开始
         # for j in range(1, m):
@@ -52,7 +52,6 @@ class kmp(object):
                 return i - m + 1
         # 没到达终止态，匹配失败
         return -1
-
         
 class TestSolution(unittest.TestCase):
     def test_0(self):

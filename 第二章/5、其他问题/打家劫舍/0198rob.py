@@ -1,14 +1,16 @@
 #!/usr/bin/env python
 # coding=utf-8
 #######################################################################
-#    > File Name: 
-#    > Author: cuiyufei
-#    > Mail: 1097189275@qq.com
-#    > Created Time: 2021年6月1日
-#    > description: 
+#    > File    : 0198rob.py
+#    > Version : 1.0
+#    > Author  : Cui Yufei 
+#    > Email   : 1097189275@qq.com
+#    > Time    : 2021/08/04 10:21:39
+#    > License : (C)Copyright 2017-2018, XXX
+#    > Desc    : None
 #######################################################################
 '''
-198. 打家劫舍(https://leetcode-cn.com/problems/house-robber/)
+[198. 打家劫舍](https://leetcode-cn.com/problems/house-robber/)
 你是一个专业的小偷，计划偷窃沿街的房屋。每间房内都藏有一定的现金，影响你偷窃的唯一制约因素就是相邻的房屋装有相互连通的防盗系统，如果两间相邻的房屋在同一晚上被小偷闯入，系统会自动报警。
 给定一个代表每个房屋存放金额的非负整数数组，计算你 不触动警报装置的情况下 ，一夜之内能够偷窃到的最高金额。
 
@@ -27,26 +29,33 @@ class Solution(object):
         """
         # 解决动态规划问题就是找「状态」和「选择」，仅此而已
         # 选择：抢或者不抢,状态：房子的索引
+        # 始化备忘录
         self.memo = [-1 for _ in range(len(nums))]
+        # 强盗从第 0 间房子开始抢劫
         return self.dp(nums, 0)
     
     def dp1(self, nums, start):
         if start >= len(nums):
             return 0
         res = max(
+                # 不抢，去下家
                 self.dp(nums, start+1),
+                # 抢，去下下家
                 nums[start] + self.dp(nums, start+2)
             )
         return res
     def dp(self, nums, start):
+        # 返回 dp[start..] 能抢到的最大值
         if start >= len(nums):
             return 0
+        # 避免重复计算
         if self.memo[start] != -1:
             return self.memo[start]
         res = max(
                 self.dp(nums, start+1),
                 nums[start] + self.dp(nums, start+2)
             )
+        # 记入备忘录
         self.memo[start] = res
         return res
     def rob2(self, nums):

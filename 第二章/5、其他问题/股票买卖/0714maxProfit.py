@@ -8,7 +8,7 @@
 #    > description: 
 #######################################################################
 '''
-714. 买卖股票的最佳时机含手续费(https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/)
+[714. 买卖股票的最佳时机含手续费](https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/)
 给定一个整数数组 prices，其中第 i 个元素代表了第 i 天的股票价格 ；非负整数 fee 代表了交易股票的手续费用。
 你可以无限次地完成交易，但是你每笔交易都需要付手续费。如果你已经购买了一个股票，在卖出它之前你就不能再继续购买股票了。
 返回获得利润的最大值。
@@ -32,6 +32,14 @@ class Solution(object):
         :rtype: int
         """
         # k = +infinity with fee
+        # dp[i][k][0] = max(dp[i-1][k][0], dp[i-1][k][1] + prices[i])
+        # dp[i][k][1] = max(dp[i-1][k][1], dp[i-1][k-1][0] - prices[i])
+        # dp[-1][k][0] = dp[i][0][0] = 0
+        # dp[-1][0][1] = dp[i][0][1] = -inf
+        # dp[i][0] = max(dp[i-1][0], dp[i-1][1] + prices[i])
+        # dp[i][1] = max(dp[i-1][1], dp[i-2][0] - prices[i] - fee)
+        # dp[-1][0] = dp[i][0] = 0
+        # dp[-1][1] = dp[i][1] = -inf
         if not prices:
             return 0
         dp_i_0, dp_i_1 = 0, float('-inf')
@@ -42,6 +50,7 @@ class Solution(object):
             dp_i_1 = max(dp_i_1, temp - prices[i] - fee)
         
         return dp_i_0
+        
 class TestSolution(unittest.TestCase):
     def test_0(self):
         prices = [1, 3, 2, 8, 4, 9]
