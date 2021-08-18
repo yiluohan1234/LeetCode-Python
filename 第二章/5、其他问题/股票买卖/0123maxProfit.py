@@ -32,6 +32,7 @@ class Solution(object):
         dp = [[[0 for i in range(2)] for _ in range(k_max+1)] for _ in range(n)]
         for i in range(n):
             for k in range(k_max, 0, -1):
+            # for k in range(1, k_max+1):
                 if i - 1 == -1:
                     dp[i][k][0] = 0
                     dp[i][k][1] = -prices[i]

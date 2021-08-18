@@ -23,7 +23,7 @@ class kmp(object):
         self.dp[0][ord(pat[0])] = 1
         # 影子状态 x 初始为 0
         x = 0
-        # #当前状态 j 从 1 开始
+        # #当前状态 j 从 1 开始         
         # for j in range(1, m):
         #     for c in range(0, 256):
         #         if ord(pat[j]) == c:

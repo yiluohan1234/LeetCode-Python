@@ -27,6 +27,7 @@ class Solution(object):
         last = self.reverseList(head.next)
         head.next.next = head
         head.next = None
+        
         return last
     def reverseList(self, head):
         """

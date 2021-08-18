@@ -51,7 +51,7 @@ base case
 dp[-1][k][0] = dp[i][0][0] = 0
 dp[-1][k][1] = dp[i][0][1] = -infinity 
 状态转移方程
-dp[i][k][0] = max(dp[i-1][k][0], dp[i-1][k-1][1] + prices[i])
+dp[i][k][0] = max(dp[i-1][k][0], dp[i-1][k][1] + prices[i])
 dp[i][k][1] = max(dp[i-1][k][1], dp[i-1][k-1][0] - prices[i])
 '''
 class Solution(object):
@@ -64,8 +64,8 @@ class Solution(object):
         # base case
         # d[-1][0] = dp[i][0] = 0
         # dp[-1][1] = dp[i][1] = -infinity 
-        # dp[i][1][0] = max(dp[i-1][1][0], dp[i-1][0][1] + prices[i])
-        # dp[i][1][1] = max(dp[i-1][1][1], -prices[i])
+        # dp[i][1][0] = max(dp[i-1][1][0], dp[i-1][1][1] + prices[i])
+        # dp[i][1][1] = max(dp[i-1][1][1], dp[i][0][0] - prices[i])
         if not prices:
             return 0
         n = len(prices)

@@ -1,32 +1,17 @@
 #!/usr/bin/env python
 # coding=utf-8
 #######################################################################
-#    > File Name: 
-#    > Author: cuiyufei
-#    > Mail: XXX@qq.com
-#    > Created Time: 2020年9月23日
-#    > description: 
+#    > File    : 0226invertTree.py
+#    > Version : 1.0
+#    > Author  : Cui Yufei 
+#    > Email   : 1097189275@qq.com
+#    > Time    : 2021/08/13 15:59:47
+#    > License : (C)Copyright 2017-2018, XXX
+#    > Desc    : None
 #######################################################################
 '''
-226. Invert Binary Tree
-Invert a binary tree.
-
-Example:
-Input:
-     4
-   /   \
-  2     7
- / \   / \
-1   3 6   9
-Output:
-     4
-   /   \
-  7     2
- / \   / \
-9   6 3   1
-Trivia:
-This problem was inspired by this original tweet by Max Howell:
-Google: 90% of our engineers use the software you wrote (Homebrew), but you can’t invert a binary tree on a whiteboard so f*** off.
+[226. 翻转二叉树](https://leetcode-cn.com/problems/invert-binary-tree/)
+翻转一棵二叉树。
 '''
 import unittest
 # Definition for a binary tree node.

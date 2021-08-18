@@ -8,8 +8,7 @@
 #    > description: 
 #######################################################################
 '''
-https://leetcode-cn.com/problems/reverse-nodes-in-k-group/
-25. K 个一组翻转链表
+[25. K 个一组翻转链表](https://leetcode-cn.com/problems/reverse-nodes-in-k-group/)
 给你一个链表，每 k 个节点一组进行翻转，请你返回翻转后的链表。
 
 k 是一个正整数，它的值小于或等于链表的长度。
@@ -36,12 +35,16 @@ class Solution(object):
         """
         if not head:
             return head
+        # 区间 [a, b) 包含 k 个待反转元素
         a, b = head, head
         for i in range(k):
+            # 不足 k 个，不需要反转，base case
             if b == None:
                 return head
             b = b.next
+        # 反转前 k 个元素
         newHead = self.reverseAB(a, b)
+        # 递归反转后续链表并连接起来
         a.next = self.reverseKGroup(b, k)
         
         return newHead
