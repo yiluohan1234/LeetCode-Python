@@ -50,7 +50,7 @@ class TestSolution(unittest.TestCase):
         arr = [1,3,5,7,2,4,6,8]
         k = 4
         res = [1,2,3,4]
-        self.assertEqual(res, Solution().smallestK(arr, k))
+        self.assertEqual(res, Solution().smallestK1(arr, k))
 
 if __name__ == '__main__':
     unittest.main()
