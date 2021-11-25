@@ -65,6 +65,7 @@ class Solution(object):
         :type k: int
         :rtype: int
         """
+        # PriorityQueue是优先级队列。越小的优先级越高，会被先取出。
         pq = PriorityQueue()
         for n in nums:
             pq.put(n)
@@ -94,4 +95,3 @@ class TestSolution(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-
